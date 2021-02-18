@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- dgemm benchmark -->
+<jube>
+  <benchmark name="dgemm_benchmark" outpath="bench_run">
+    
+    <parameterset name="systemParameter" init_with="platform.xml">
+      <parameter name="mail"></parameter>
+      <parameter name="nodes" type="int">1</parameter>
+      <parameter name="taskspernode" type="int">1</parameter>
+<!--       <parameter name="i" type="int">0,1,2,3</parameter> -->
+      <parameter name="threadspertask" type="int" mode="python" separator=";">
+	{
+          "juwels":        "1;24;48",
+          "juwelsbooster": "1;24;48",
+          "jureca":        "1;12;24",
+          "jusuf":         "1;64;128",
+         }["${systemname}"]
+      </parameter>
+      <parameter name="timelimit">00:20:00</parameter>
+      <parameter name="executable"></parameter>
+      <parameter name="queue" mode="python">{
+          "juwels":        "batch --disable-turbomode",
+          "juwelsbooster": "booster",
+          "jureca":        "batch",
+          "jusuf":         "batch"
+        }["${systemname}"]</parameter>
+      <parameter name="measurement">${load_modules}; time -p</parameter>
+      <parameter name="account" mode="python">{
+          "juwels":        "slai",
+          "juwelsbooster": "slai",
+          "jureca":        "slai",
+          "jusuf":         "slai",
+        }["${systemname}"]</parameter>
+      
+      <parameter name="CPU_AFFINITY" type="int" mode="python">$threadspertask-1</parameter>
+      <parameter name="BLIS_JC" mode="python" separator=";">
+        {
+          "juwels":        {1:1, 24:2, 48:4},
+         }["${systemname}"]
+      </parameter>
+      <parameter name="BLIS_IC" mode="python" separator=";">
+        {
+          "juwels":        {1:1, 24:12, 48:12},
+         }["${systemname}"]
+      </parameter>
+      <parameter name="BLISEXPORT" mode="python" separator=";">
+        "export BLIS_JC_NT="+str($BLIS_JC[$threadspertask])+" BLIS_IC_NT="+str($BLIS_IC[$threadspertask]) if '$numlib_compile' == 'BLIS' else ""
+      </parameter>
+      <parameter name="additional_job_config">
+export OMP_PROC_BIND=TRUE
+export OMP_PLACES=cores
+export GOMP_CPU_AFFINITY=0-$CPU_AFFINITY
+export OMP_NUM_THREADS=$${SLURM_CPUS_PER_TASK}
+$BLISEXPORT
+      </parameter>
+      
+      <parameter name="executable">echo ${NREPEATS} ${NFIRST} ${NLAST} ${NINC} | ./compile/src/dgemm.x</parameter>
+    </parameterset>
+
+    <parameterset name="environment">
+      <parameter name="systemname" mode="shell">cat /etc/FZJ/systemname | tr -d "\n"</parameter>
+<!--       <parameter name="numlib" separator="!">BLIS</parameter> -->
+      <parameter name="Stage" separator="!" mode="python">{
+          "BLIS/2.2-amd":    "Devel-2020",
+          "imkl/2019.3.199": "2019a",
+          "imkl/2019.5.281": "2019a",
+          "imkl/2020.2.254": "Devel-2020",
+          "imkl/2020.4.304": "2020b",
+          "BLIS/0.8":        "2020b",
+          "OpenBLAS/0.3.12": "2020b",
+        }["${numlib}"]</parameter>
+      <parameter name="numlib" separator="," mode="python">
+        {
+          "juwels":        "BLIS/0.8, imkl/2020.4.304, OpenBLAS/0.3.12",
+          "juwelsbooster": "BLIS/2.2-amd, imkl/2019.3.199, imkl/2020.2.254",
+          "jureca":        "imkl/2020.2.254",
+          "jusuf":         "BLIS/2.2-amd, imkl/2019.3.199, imkl/2020.2.254, imkl/2020.4.304",
+        }["${systemname}"]
+      </parameter>
+      <parameter name="numlib_compile" separator="!" mode="python">"${numlib}".split('/')[0]</parameter>
+      <parameter name="load_modules" separator="!" mode="python">  {
+          "juwels":        "module purge; module use $OTHERSTAGES; ml use $MYOTHERSTAGES; module load Stages/${Stage}; module load GCC OpenMPI ${numlib}",
+          "juwelsbooster": "module purge; module use $OTHERSTAGES; module load Stages/Devel-2020; module load GCC OpenMPI ${numlib}",
+          "jureca":        "module purge; module use $OTHERSTAGES; ml use $MYOTHERSTAGES; module load Stages/Devel-2020; module load GCC OpenMPI ${numlib}",
+          "jusuf":         "module purge; module use $OTHERSTAGES; module load Stages/${Stage}; module load GCC OpenMPI ${numlib}",
+        }["${systemname}"]
+      </parameter>
+      
+    </parameterset>
+    
+    
+    <parameterset name="config">
+      
+      <parameter name="NREPEATS" type="int">10</parameter>
+<!--       <parameter name="NFIRST" type="int">128</parameter> -->
+      <parameter name="NFIRST" type="int" mode="python">{
+           "64":    "1024",
+          "128":    "1024",
+          "256":    "1024"
+         }.get("${threadspertask}","128")</parameter>
+      <parameter name="NLAST" type="int" mode="python" separator=";">{
+            "1":     "2048",
+            "2":     "2048",
+            "4":     "2048",
+            "8":     "2048",
+           "12":     "2048",
+           "16":     "4096",
+           "24":     "8192",
+           "32":     "8192",
+           "48":     "8192",
+           "64":     "8192",
+          "128":    "10240",
+          "256":    "10240"
+         }["${threadspertask}"] </parameter>
+      <parameter name="NINC" type="int" mode="python">{
+           "64":    "1024",
+          "128":    "1024",
+          "256":    "1024"
+         }.get("${threadspertask}","128")</parameter>
+      
+    </parameterset>
+
+
+    <fileset name="sources">
+      <copy>src</copy>
+    </fileset>
+    
+    <step name="compile">
+      <use>environment</use>
+      <use>sources</use>
+
+      <do>
+        ${load_modules}
+        cd src
+        make ${numlib_compile}
+      </do>
+      
+    </step>
+
+    <step name="execute" depend="compile" iterations="5">
+      <use>systemParameter</use>
+      <use>environment</use>
+      <use>config</use>
+      <use from="platform.xml">executeset</use>
+      <use from="platform.xml">executesub</use>
+      <use from="platform.xml">jobfiles</use>
+      
+      <do done_file="$done_file">$submit $submit_script</do> 
+    </step>
+
+    <!-- Regex pattern -->
+    <patternset name="jobnumber">
+      <pattern name="jobid">Submitted batch job $jube_pat_int</pattern>
+      <pattern name="status" mode="perl">'`sacct --format State -j $job_id | head -n 3 | tail -n 1`'</pattern>
+      <pattern name="exit_code" mode="perl">'`sacct --format ExitCode -j $job_id | head -n 3 | tail -n 1`'</pattern>
+    </patternset>
+
+    <patternset name="runtimepattern">
+      <pattern name="runtime" type="float" unit="s">real ${jube_pat_fp}</pattern>
+      <pattern name="error_code" type="int">JUBE_ERR_CODE=$jube_pat_int</pattern>
+    </patternset>
+    
+    <patternset name="pattern">
+      <pattern name="GFLOPS" type="float">${jube_pat_bl}${NLAST}${jube_pat_bl}${jube_pat_nfp}${jube_pat_bl}${jube_pat_fp}${jube_pat_bl}${jube_pat_nfp}</pattern>
+      <pattern name="GFLOPSpcore" type="float">${jube_pat_bl}${NLAST}${jube_pat_bl}${jube_pat_nfp}${jube_pat_bl}${jube_pat_nfp}${jube_pat_bl}${jube_pat_fp}</pattern>
+      <pattern name="time" type="float" unit="s">${jube_pat_bl}${NLAST}${jube_pat_bl}${jube_pat_fp}${jube_pat_bl}${jube_pat_nfp}${jube_pat_bl}${jube_pat_nfp}</pattern>
+    </patternset>
+
+    <!-- Analyse -->
+    <analyser name="analyse" reduce="true">
+      <use>pattern</use>
+      <analyse step="execute">
+        <file>job.out</file>
+        <file use="runtimepattern">job.err</file>
+        <file use="jobnumber">stdout</file>
+      </analyse>
+    </analyser>
+
+    <!-- Create result table -->
+    <result>
+      <use>analyse</use>
+      <table name="result" style="pretty" sort="numlib,threadspertask">
+        <column title="Job ID">jobid</column>
+        <column>systemname</column>
+        <column>numlib</column>
+        <column>error_code</column>
+        <column>runtime</column>
+        <column>nodes</column>
+        <column>taskspernode</column>
+        <column>threadspertask</column>
+        <column title="n=m=k">NLAST</column>
+        <column>time_avg</column>
+        <column>GFLOPS_avg</column>
+        <column>GFLOPS_std</column>
+        <column>GFLOPS_min</column>
+        <column>GFLOPS_max</column>
+        <column>GFLOPSpcore_avg</column>
+      </table>
+
+      <table name="result-csv" style="csv" sort="numlib,threadspertask">
+        <column>jobid</column>        
+        <column>systemname</column>
+        <column>numlib</column>
+        <column>error_code</column>
+        <column>runtime</column>
+        <column>nodes</column>
+        <column>taskspernode</column>
+        <column>threadspertask</column>
+        <column>NLAST</column>
+        <column>time</column>
+        <column>GFLOPS</column>
+        <column>GFLOPSpcore</column>
+      </table>
+    </result>
+
+  </benchmark>
+</jube>
+ 
