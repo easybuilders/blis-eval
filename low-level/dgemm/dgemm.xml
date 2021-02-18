@@ -33,11 +33,25 @@
         }["${systemname}"]</parameter>
       
       <parameter name="CPU_AFFINITY" type="int" mode="python">$threadspertask-1</parameter>
+      <parameter name="BLIS_JC" mode="python" separator=";">
+        {
+          "juwels":        {1:1, 24:2, 48:4},
+         }["${systemname}"]
+      </parameter>
+      <parameter name="BLIS_IC" mode="python" separator=";">
+        {
+          "juwels":        {1:1, 24:12, 48:12},
+         }["${systemname}"]
+      </parameter>
+      <parameter name="BLISEXPORT" mode="python" separator=";">
+        "export BLIS_JC_NT="+str($BLIS_JC[$threadspertask])+" BLIS_IC_NT="+str($BLIS_IC[$threadspertask]) if '$numlib_compile' == 'BLIS' else ""
+      </parameter>
       <parameter name="additional_job_config">
 export OMP_PROC_BIND=TRUE
 export OMP_PLACES=cores
 export GOMP_CPU_AFFINITY=0-$CPU_AFFINITY
 export OMP_NUM_THREADS=$${SLURM_CPUS_PER_TASK}
+$BLISEXPORT
       </parameter>
       
       <parameter name="executable">echo ${NREPEATS} ${NFIRST} ${NLAST} ${NINC} | ./compile/src/dgemm.x</parameter>
