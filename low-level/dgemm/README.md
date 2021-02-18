@@ -9,7 +9,7 @@ Make sure `JUBE` is installed:
 eb JUBE-2.4.1.eb
 ```
 
-To run the benchmark use:
+To run the benchmark:
 
 ```
 ssh juwels
@@ -19,6 +19,7 @@ squeue -u $USER
 jube continue bench_run
 jube result -a bench_run
 
+# Store the csv
 jube result bench_run -o result-csv > data/$SYSTEMNAME/`date +"%Y-%m-%d"`.csv
 ```
 
