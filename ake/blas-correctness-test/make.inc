@@ -9,7 +9,7 @@ SHELL = /bin/sh
 #  CC is the C compiler, normally invoked with options CFLAGS.
 #
 CC := gcc
-CFLAGS := -O3
+CFLAGS := -O0 -mieee-fp
 
 #  Modify the FC and FFLAGS definitions to the desired compiler
 #  and desired compiler options for your machine.  NOOPT refers to
@@ -20,13 +20,13 @@ CFLAGS := -O3
 #  should not compile LAPACK with flags such as -ffpe-trap=overflow.
 #
 FC := gfortran
-FFLAGS := -O2 -frecursive
-FFLAGS_DRV = -O0
-FFLAGS_NOOPT = -O0 -frecursive
+FFLAGS := -O0 -frecursive -mieee-fp
+FFLAGS_DRV = -O0 -mieee-fp
+FFLAGS_NOOPT = -O0 -frecursive -mieee-fp
 
 #  Define LDFLAGS to the desired linker options for your machine.
 #
-#LDFLAGS =
+LDFLAGS = -mieee-fp
 
 #  The archiver and the flag(s) to use when building an archive
 #  (library).  If your system has no ranlib, set RANLIB = echo.
@@ -77,7 +77,9 @@ TIMER = INT_ETIME
 #  possible.)
 #
 #BLASLIB      = $(TOPSRCDIR)/librefblas.a
-BLASLIB      = $(EBROOTBLIS)/lib/libblis.so
+#BLASLIB      = -lblis
+#BLASLIB      = -lopenblas
+BLASLIB      = -Wl,--start-group -lmkl_gf_lp64 -lmkl_sequential -lmkl_core -Wl,--end-group
 #CBLASLIB     = $(TOPSRCDIR)/libcblas.a
 LAPACKLIB    = $(TOPSRCDIR)/liblapack.a
 TMGLIB       = $(TOPSRCDIR)/libtmglib.a
