@@ -55,7 +55,11 @@ Tested on:
 
 Same tests fail on both systems.
 
-## Example failed test
+## Notes
+
+* looks *a lot* like https://github.com/numpy/numpy/issues/16567 ?
+
+#### Example failed test
 
 (both with `gobff/2020b` and `iibff/2020b`)
 
