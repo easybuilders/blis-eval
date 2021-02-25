@@ -12,7 +12,7 @@
 	{
           "juwels":        "1;24;48",
           "juwelsbooster": "1;24;48",
-          "jureca":        "1;12;24",
+          "jureca":        "1;64;128",
           "jusuf":         "1;64;128",
          }["${systemname}"]
       </parameter>
@@ -36,15 +36,26 @@
       <parameter name="BLIS_JC" mode="python" separator=";">
         {
           "juwels":        {1:1, 24:2, 48:4},
+          "jureca":        {1:1, 24:2, 48:4},
+          "jusuf":         {1:1, 64:4, 128:8},
          }["${systemname}"]
       </parameter>
       <parameter name="BLIS_IC" mode="python" separator=";">
         {
           "juwels":        {1:1, 24:12, 48:12},
+          "juwels":        {1:1, 24:12, 48:12},
+          "jusuf":         {1:1, 64:4, 128:4},
+         }["${systemname}"]
+      </parameter>
+      <parameter name="BLIS_JR" mode="python" separator=";">
+        {
+          "juwels":        {1:1, 24:1, 48:1},
+          "juwels":        {1:1, 24:1, 48:1},
+          "jusuf":         {1:1, 64:4, 128:4},
          }["${systemname}"]
       </parameter>
       <parameter name="BLISEXPORT" mode="python" separator=";">
-        "export BLIS_JC_NT="+str($BLIS_JC[$threadspertask])+" BLIS_IC_NT="+str($BLIS_IC[$threadspertask]) if '$numlib_compile' == 'BLIS' else ""
+        "export BLIS_JC_NT="+str($BLIS_JC[$threadspertask])+" BLIS_IC_NT="+str($BLIS_IC[$threadspertask])+" BLIS_JR_NT="+str($BLIS_JR[$threadspertask]) if '$numlib_compile' == 'BLIS' else ""
       </parameter>
       <parameter name="additional_job_config">
 export OMP_PROC_BIND=TRUE
@@ -54,7 +65,7 @@ export OMP_NUM_THREADS=$${SLURM_CPUS_PER_TASK}
 $BLISEXPORT
       </parameter>
       
-      <parameter name="executable">echo ${NREPEATS} ${NFIRST} ${NLAST} ${NINC} | ./compile/src/dgemm.x</parameter>
+      <parameter name="executable">echo ${NREPEATS} ${NLAST} ${NLAST} ${NINC} | ./compile/src/dgemm.x</parameter>
     </parameterset>
 
     <parameterset name="environment">
@@ -74,15 +85,16 @@ $BLISEXPORT
           "juwels":        "BLIS/0.8, imkl/2020.4.304, OpenBLAS/0.3.12",
           "juwelsbooster": "BLIS/2.2-amd, imkl/2019.3.199, imkl/2020.2.254",
           "jureca":        "imkl/2020.2.254",
-          "jusuf":         "BLIS/2.2-amd, imkl/2019.3.199, imkl/2020.2.254, imkl/2020.4.304",
+<!--           "jusuf":         "BLIS/2.2-amd, imkl/2019.3.199, imkl/2020.2.254, imkl/2020.4.304", -->
+          "jusuf":        "BLIS/0.8, imkl/2020.4.304, OpenBLAS/0.3.12",
         }["${systemname}"]
       </parameter>
       <parameter name="numlib_compile" separator="!" mode="python">"${numlib}".split('/')[0]</parameter>
       <parameter name="load_modules" separator="!" mode="python">  {
           "juwels":        "module purge; module use $OTHERSTAGES; ml use $MYOTHERSTAGES; module load Stages/${Stage}; module load GCC OpenMPI ${numlib}",
           "juwelsbooster": "module purge; module use $OTHERSTAGES; module load Stages/Devel-2020; module load GCC OpenMPI ${numlib}",
-          "jureca":        "module purge; module use $OTHERSTAGES; ml use $MYOTHERSTAGES; module load Stages/Devel-2020; module load GCC OpenMPI ${numlib}",
-          "jusuf":         "module purge; module use $OTHERSTAGES; module load Stages/${Stage}; module load GCC OpenMPI ${numlib}",
+          "jureca":        "module purge; module use $OTHERSTAGES; ml use $MYOTHERSTAGES; module load Stages/${Stage}; module load GCC OpenMPI ${numlib}",
+          "jusuf":         "module purge; module use $OTHERSTAGES; ml use $MYOTHERSTAGES; module load Stages/${Stage}; module load GCC OpenMPI ${numlib}",
         }["${systemname}"]
       </parameter>
       
@@ -94,29 +106,29 @@ $BLISEXPORT
       <parameter name="NREPEATS" type="int">10</parameter>
 <!--       <parameter name="NFIRST" type="int">128</parameter> -->
       <parameter name="NFIRST" type="int" mode="python">{
-           "64":    "1024",
-          "128":    "1024",
-          "256":    "1024"
+           "64":    "1000",
+          "128":    "1000",
+          "256":    "1000"
          }.get("${threadspertask}","128")</parameter>
       <parameter name="NLAST" type="int" mode="python" separator=";">{
-            "1":     "2048",
-            "2":     "2048",
-            "4":     "2048",
-            "8":     "2048",
-           "12":     "2048",
-           "16":     "4096",
-           "24":     "8192",
-           "32":     "8192",
-           "48":     "8192",
-           "64":     "8192",
-          "128":    "10240",
-          "256":    "10240"
+            "1":     "8000",
+            "2":     "8000",
+            "4":     "8000",
+            "8":     "8000",
+           "12":     "8000",
+           "16":     "8000",
+           "24":    "19000",
+           "32":    "19000",
+           "48":    "24000",
+           "64":    "24000",
+          "128":    "24000",
+          "256":    "24000"
          }["${threadspertask}"] </parameter>
       <parameter name="NINC" type="int" mode="python">{
-           "64":    "1024",
-          "128":    "1024",
-          "256":    "1024"
-         }.get("${threadspertask}","128")</parameter>
+           "64":    "1000",
+          "128":    "1000",
+          "256":    "1000"
+         }.get("${threadspertask}","100")</parameter>
       
     </parameterset>
 
@@ -137,7 +149,7 @@ $BLISEXPORT
       
     </step>
 
-    <step name="execute" depend="compile" iterations="5">
+    <step name="execute" depend="compile" iterations="1">
       <use>systemParameter</use>
       <use>environment</use>
       <use>config</use>
@@ -208,7 +220,7 @@ $BLISEXPORT
         <column>threadspertask</column>
         <column>NLAST</column>
         <column>time</column>
-        <column>GFLOPS</column>
+        <column title="GFLOPS">GFLOPS_avg</column>
         <column>GFLOPSpcore</column>
       </table>
     </result>
