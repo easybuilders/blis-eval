@@ -1,0 +1,13 @@
+test,toolchain,cores,MFLOPS
+xcl1,gobff-2020b,40,6710.9
+xcl2,gobff-2020b,40,8885.8
+xcl3,gobff-2020b,40,1937546.6
+xdl1,gobff-2020b,40,2097.2
+xdl2,gobff-2020b,40,5836.4
+xdl3,gobff-2020b,40,876369.4
+xsl1,gobff-2020b,40,2097.2
+xsl2,gobff-2020b,40,11434.3
+xsl3,gobff-2020b,40,1516378.9
+xzl1,gobff-2020b,40,8388.6
+xzl2,gobff-2020b,40,6482.5
+xzl3,gobff-2020b,40,1214156.6
