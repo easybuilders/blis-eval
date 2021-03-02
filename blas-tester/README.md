@@ -1,6 +1,6 @@
 ## Building blas-tester with gobff
 
-```
+```bash
 module load gobff/2020b
 
 wget https://github.com/xianyi/BLAS-Tester/archive/8e1f624.tar.gz -O 20160411.tar.gz
@@ -11,7 +11,7 @@ make -j 4 CC="mpicc" CXX="mpicxx" FC="mpif90" NUMTHREADS=4 USE_OPENMP=1 L2SIZE=$
 
 ## Building blas-tester with foss for comparison
 
-```
+```bash
 module load foss/2020b
 
 mkdir BLAS-Tester-20160411 && tar -xzvf /apps/brussel/sources/b/BLAS-Tester/BLAS-Tester-20160411.tar.gz --strip-components 1 -C BLAS-Tester-20160411 && cd BLAS-Tester-20160411
@@ -21,7 +21,7 @@ make -j 4 CC="mpicc" CXX="mpicxx" FC="mpif90" NUMTHREADS=4 USE_OPENMP=1 L2SIZE=$
 
 ## Running the tests
 
-```
+```bash
 run_tests() {
     module=$1
     cores=$2
@@ -42,6 +42,6 @@ run_tests gobff-2020b 4
 run_tests gobff-2020b 40
 ```
 
-## Correctness test:
+## Correctness test
 
 all tests pass with both `foss/2020b` and `gobff/2020b`
