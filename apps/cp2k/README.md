@@ -36,6 +36,13 @@ Number of memory  leaks 0
 --------------------------------------------------------------------------
 ```
 
+All extra FAILED tests are Segmentation faults:
+```
+mpirun noticed that process rank 3 with PID 0 on node node351 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+EXIT CODE:  139  MEANING:  RUNTIME FAIL
+```
+
 ### things tested without success:
 'lowopt': True
 'optarch': 'mavx2'
