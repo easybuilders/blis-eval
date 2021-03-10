@@ -1,0 +1,13 @@
+test,module,cores,MFLOPS
+xcl1,gobff-2020b,64,38028.4
+xdl1,gobff-2020b,64,2.25
+xsl1,gobff-2020b,64,7.25
+xzl1,gobff-2020b,64,22649.2
+xcl2,gobff-2020b,64,9043.4
+xdl2,gobff-2020b,64,4829.5
+xsl2,gobff-2020b,64,20216.4
+xzl2,gobff-2020b,64,4303.6
+xcl3,gobff-2020b,64,664010.3
+xdl3,gobff-2020b,64,191866.8
+xsl3,gobff-2020b,64,281374.2
+xzl3,gobff-2020b,64,270855.8

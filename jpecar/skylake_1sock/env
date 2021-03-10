@@ -1,0 +1,30 @@
+Are we in a VM? No.
+Running on: Intel(R) Xeon(R) Gold 6136 CPU @ 3.00GHz
+System has 1 socket(s) and 1 NUMA domain(s).
+CPUs I can run on: 0-23
+CPU 0 (core in numa 0) is governed by performance and is currently at 1356262Hz.
+CPU 1 (core in numa 0) is governed by performance and is currently at 3599670Hz.
+CPU 2 (core in numa 0) is governed by performance and is currently at 1601440Hz.
+CPU 3 (core in numa 0) is governed by performance and is currently at 3599853Hz.
+CPU 4 (core in numa 0) is governed by performance and is currently at 3434692Hz.
+CPU 5 (core in numa 0) is governed by performance and is currently at 1468505Hz.
+CPU 6 (core in numa 0) is governed by performance and is currently at 3023437Hz.
+CPU 7 (core in numa 0) is governed by performance and is currently at 1443969Hz.
+CPU 8 (core in numa 0) is governed by performance and is currently at 1855773Hz.
+CPU 9 (core in numa 0) is governed by performance and is currently at 1846435Hz.
+CPU 10 (core in numa 0) is governed by performance and is currently at 2992675Hz.
+CPU 11 (core in numa 0) is governed by performance and is currently at 3540527Hz.
+CPU 12 (thread in numa 0) is governed by performance and is currently at 2597717Hz.
+CPU 13 (thread in numa 0) is governed by performance and is currently at 3599853Hz.
+CPU 14 (thread in numa 0) is governed by performance and is currently at 3329040Hz.
+CPU 15 (thread in numa 0) is governed by performance and is currently at 3561584Hz.
+CPU 16 (thread in numa 0) is governed by performance and is currently at 3583923Hz.
+CPU 17 (thread in numa 0) is governed by performance and is currently at 3533569Hz.
+CPU 18 (thread in numa 0) is governed by performance and is currently at 3589782Hz.
+CPU 19 (thread in numa 0) is governed by performance and is currently at 3590515Hz.
+CPU 20 (thread in numa 0) is governed by performance and is currently at 3568359Hz.
+CPU 21 (thread in numa 0) is governed by performance and is currently at 2422119Hz.
+CPU 22 (thread in numa 0) is governed by performance and is currently at 3424438Hz.
+CPU 23 (thread in numa 0) is governed by performance and is currently at 3210205Hz.
+
+#6x16GB dimms @ 2666MT/s

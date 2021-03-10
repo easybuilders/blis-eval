@@ -1,0 +1,38 @@
+Are we in a VM? No.
+Running on: AMD EPYC 7282 16-Core Processor
+System has 1 socket(s) and 1 NUMA domain(s).
+CPUs I can run on: 0-31
+CPU 0 (core in numa 0) is governed by performance and is currently at 2800000Hz.
+CPU 1 (core in numa 0) is governed by performance and is currently at 2800000Hz.
+CPU 2 (core in numa 0) is governed by performance and is currently at 2800000Hz.
+CPU 3 (core in numa 0) is governed by performance and is currently at 2800000Hz.
+CPU 4 (core in numa 0) is governed by performance and is currently at 2800000Hz.
+CPU 5 (core in numa 0) is governed by performance and is currently at 2800000Hz.
+CPU 6 (core in numa 0) is governed by performance and is currently at 2800000Hz.
+CPU 7 (core in numa 0) is governed by performance and is currently at 2800000Hz.
+CPU 8 (core in numa 0) is governed by performance and is currently at 2800000Hz.
+CPU 9 (core in numa 0) is governed by performance and is currently at 2800000Hz.
+CPU 10 (core in numa 0) is governed by performance and is currently at 2800000Hz.
+CPU 11 (core in numa 0) is governed by performance and is currently at 2800000Hz.
+CPU 12 (core in numa 0) is governed by performance and is currently at 2800000Hz.
+CPU 13 (core in numa 0) is governed by performance and is currently at 2800000Hz.
+CPU 14 (core in numa 0) is governed by performance and is currently at 2800000Hz.
+CPU 15 (core in numa 0) is governed by performance and is currently at 2800000Hz.
+CPU 16 (thread in numa 0) is governed by performance and is currently at 2800000Hz.
+CPU 17 (thread in numa 0) is governed by performance and is currently at 2800000Hz.
+CPU 18 (thread in numa 0) is governed by performance and is currently at 2800000Hz.
+CPU 19 (thread in numa 0) is governed by performance and is currently at 2800000Hz.
+CPU 20 (thread in numa 0) is governed by performance and is currently at 2800000Hz.
+CPU 21 (thread in numa 0) is governed by performance and is currently at 2800000Hz.
+CPU 22 (thread in numa 0) is governed by performance and is currently at 2800000Hz.
+CPU 23 (thread in numa 0) is governed by performance and is currently at 2800000Hz.
+CPU 24 (thread in numa 0) is governed by performance and is currently at 2800000Hz.
+CPU 25 (thread in numa 0) is governed by performance and is currently at 2800000Hz.
+CPU 26 (thread in numa 0) is governed by performance and is currently at 2800000Hz.
+CPU 27 (thread in numa 0) is governed by performance and is currently at 2800000Hz.
+CPU 28 (thread in numa 0) is governed by performance and is currently at 2800000Hz.
+CPU 29 (thread in numa 0) is governed by performance and is currently at 2800000Hz.
+CPU 30 (thread in numa 0) is governed by performance and is currently at 2800000Hz.
+CPU 31 (thread in numa 0) is governed by performance and is currently at 2800000Hz.
+
+# 4 x 32GB dimms @ 3200MT/s

@@ -1,0 +1,13 @@
+test,module,cores,MFLOPS
+xcl1,gobff-2020.06-amd,2,67947.7
+xdl1,gobff-2020.06-amd,2,2.25
+xsl1,gobff-2020.06-amd,2,3.25
+xzl1,gobff-2020.06-amd,2,29360.1
+xcl2,gobff-2020.06-amd,2,7550.1
+xdl2,gobff-2020.06-amd,2,7167.7
+xsl2,gobff-2020.06-amd,2,35716.7
+xzl2,gobff-2020.06-amd,2,6971.9
+xcl3,gobff-2020.06-amd,2,92769.7
+xdl3,gobff-2020.06-amd,2,46110.8
+xsl3,gobff-2020.06-amd,2,91624.7
+xzl3,gobff-2020.06-amd,2,47027.9
