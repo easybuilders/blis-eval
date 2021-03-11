@@ -1,5 +1,7 @@
 ## Debug session for CP2K
 
+debug symbols enabled for CP2K, ScaLAPACK, and libFLAME
+
 ```shell
 ml CP2K/7.1-gobff-2020b
 export OMP_NUM_THREADS=1
