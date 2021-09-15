@@ -34,10 +34,11 @@ For the record, OpenBLAS does not trigger this.
 
 
 Testing using LAPACK
+```
 make lib
 make lapack_testing > test.out 2>&1
 tail -n 11 test.out
-
+```
 Ideal result is (from using refblas):
 ```
                         -->   LAPACK TESTING SUMMARY  <--
