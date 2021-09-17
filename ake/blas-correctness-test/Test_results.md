@@ -8,7 +8,7 @@ BLAS TEST:
 ```
 BLAS lib | version    | toolchain     | result
 blasref  | -          | GCC/10.2.0    | PASS
-BLIS     | 0.8.0      | gobff/2020b   | warning xblat3d with IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+BLIS     | 0.8.1      | gobff/2021b   | PASS
 OpenBLAS | 0.3.12     | foss/2020b    | PASS
 imkl     | 2017.1.132 | GCCcore/6.3.0 | warning xblat3c with IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
 imkl     | 2017.1.132 | GCCcore/6.3.0 | warning xblat3z with IEEE_DENORMAL
@@ -22,15 +22,13 @@ imkl     | 2020.1.217 | GCCcore/9.3.0 | warning xblat3c with IEEE_DENORMAL
 imkl     | 2020.1.217 | GCCcore/9.3.0 | warning xblat3z with IEEE_DENORMAL
 ```
 
-IEEE signal problem reported to BLIS: https://github.com/flame/blis/issues/486
-
 LAPACK TEST:
-refblas:
+refblas with reflapack:
 ```
 --> ALL PRECISIONS      4186556         0       (0.000%)        0       (0.000%)
 ```
 
-BLIS/0.8.0:
+BLIS/0.8.1 with reflapack:
 ```
                         -->   LAPACK TESTING SUMMARY  <--
                 Processing LAPACK Testing output found in the TESTING directory
@@ -81,12 +79,12 @@ BLAS TEST:
 ```
 BLAS lib | version    | toolchain     | result
 blasref  | -          | GCC/10.2.0    | PASS
-BLIS     | 0.8.0      | gobff/2020b   | PASS
+BLIS     | 0.8.1      | gobff/2021b   | PASS
 OpenBLAS | 0.3.12     | foss/2020b    | PASS
 ```
 
 LAPACK TEST:
-BLIS/0.8.0:
+BLIS/0.8.1 with reflapack:
 ```
                         -->   LAPACK TESTING SUMMARY  <--
                 Processing LAPACK Testing output found in the TESTING directory
@@ -108,12 +106,12 @@ BLAS TEST:
 ```
 BLAS lib | version    | toolchain     | result
 blasref  | -          | GCC/10.2.0    | PASS
-BLIS     | 0.8.0      | gobff/2020b   | PASS
+BLIS     | 0.8.1      | gobff/2021b   | PASS
 OpenBLAS | 0.3.12     | foss/2020b    | PASS
 ```
 
-LAPACK TEST:
-BLIS/0.8.0:
+LAPACK TEST with reflapack:
+BLIS/0.8.1:
 ```
                         -->   LAPACK TESTING SUMMARY  <--
                 Processing LAPACK Testing output found in the TESTING directory
